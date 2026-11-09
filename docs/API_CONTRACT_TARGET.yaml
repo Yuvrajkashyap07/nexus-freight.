@@ -1,0 +1,134 @@
+openapi: 3.1.0
+info:
+  title: NEXUS Freight API (target contract)
+  version: 1.0.0-draft
+  description: >-
+    Illustrative production API contract for the future NEXUS backend. These endpoints
+    are not exposed by the current Streamlit classroom prototype.
+servers:
+  - url: https://api.example.com/v1
+security:
+  - bearerAuth: []
+paths:
+  /shipments:
+    get:
+      summary: List tenant shipments
+      parameters:
+        - in: query
+          name: status
+          schema: { type: string }
+        - in: query
+          name: updated_since
+          schema: { type: string, format: date-time }
+      responses:
+        '200':
+          description: Shipment page
+    post:
+      summary: Create a shipment draft
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ShipmentCreate' }
+      responses:
+        '201': { description: Shipment created }
+        '409': { description: Duplicate idempotency key }
+  /shipments/{shipmentId}/events:
+    post:
+      summary: Ingest a partner or operator shipment event
+      parameters:
+        - in: path
+          name: shipmentId
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ShipmentEvent' }
+      responses:
+        '202': { description: Event accepted for processing }
+        '422': { description: Event failed schema or business validation }
+  /quotes:
+    post:
+      summary: Calculate and save a commercial quote
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/QuoteCreate' }
+      responses:
+        '201': { description: Quote created }
+        '422': { description: Pricing validation error }
+  /quotes/{quoteId}/accept:
+    post:
+      summary: Accept quote and initiate booking workflow
+      parameters:
+        - in: path
+          name: quoteId
+          required: true
+          schema: { type: string }
+      responses:
+        '202': { description: Booking workflow started; approval may be required }
+  /documents:
+    post:
+      summary: Create a document processing job
+      responses:
+        '202': { description: Document accepted for asynchronous processing }
+  /exceptions:
+    get:
+      summary: List exceptions
+      responses:
+        '200': { description: Exception records }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ShipmentCreate:
+      type: object
+      required: [customer_id, mode, origin_code, destination_code, etd, eta]
+      properties:
+        customer_id: { type: string }
+        mode: { type: string, enum: [OCEAN_FCL, OCEAN_LCL, AIR, ROAD, RAIL, MULTIMODAL] }
+        origin_code: { type: string }
+        destination_code: { type: string }
+        etd: { type: string, format: date-time }
+        eta: { type: string, format: date-time }
+        incoterm: { type: string }
+        currency: { type: string, minLength: 3, maxLength: 3 }
+    ShipmentEvent:
+      type: object
+      required: [provider, provider_event_id, event_code, event_time]
+      properties:
+        provider: { type: string }
+        provider_event_id: { type: string }
+        event_code: { type: string }
+        event_time: { type: string, format: date-time }
+        location_code: { type: string }
+        equipment_reference: { type: string }
+        raw_payload_hash: { type: string }
+    QuoteCreate:
+      type: object
+      required: [customer_id, origin_code, destination_code, currency, cost_components, target_margin_pct]
+      properties:
+        customer_id: { type: string }
+        origin_code: { type: string }
+        destination_code: { type: string }
+        currency: { type: string }
+        cost_components:
+          type: object
+          additionalProperties: { type: number, minimum: 0 }
+        target_margin_pct: { type: number, minimum: 0, maximum: 80 }

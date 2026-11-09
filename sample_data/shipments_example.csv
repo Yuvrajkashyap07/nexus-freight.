@@ -1,0 +1,4 @@
+reference,mode,origin,destination,status,etd,eta,weight_kg,volume_cbm,buy_cost,sell_price,currency
+NXS-202600012,Ocean FCL,"Shanghai, China","Rotterdam, Netherlands",In transit,2026-11-02,2026-11-28,18450,54.2,4200,5250,USD
+NXS-202600013,Air,"Singapore","London, UK",Booked,2026-11-15,2026-11-19,650,4.8,2850,3600,USD
+NXS-202600014,Road,"Hamburg, Germany","Rotterdam, Netherlands",Delivered,2026-10-28,2026-10-30,9200,31.0,890,1125,EUR

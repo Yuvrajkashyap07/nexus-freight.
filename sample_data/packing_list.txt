@@ -1,0 +1,11 @@
+PACKING LIST
+Shipment Ref: NXS-202600012
+Shipper: Northstar Components GmbH
+Consignee: Apex Retail Group
+Packages: 420 cartons
+Gross Weight: 18,450 kg
+Net Weight: 17,900 kg
+Measurement: 54.2 CBM
+Port of Loading: Shanghai, China
+Port of Discharge: Rotterdam, Netherlands
+Container: NEXU4812057

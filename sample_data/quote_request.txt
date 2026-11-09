@@ -1,0 +1,14 @@
+RATE REQUEST / RFQ
+Customer: Apex Retail Group
+Shipment reference: RFQ-NXS-2026-1109
+Mode: Ocean FCL
+Port of loading: Shanghai, China
+Port of discharge: Rotterdam, Netherlands
+Cargo: Consumer electronics
+Equipment: 1 x 40HC
+Gross weight: 18,450 kg
+Measurement: 54.2 CBM
+Incoterm: FOB
+ETD: 2026-11-18
+ETA: 2026-12-15
+Please provide an all-in freight quotation with origin and destination handling separated.

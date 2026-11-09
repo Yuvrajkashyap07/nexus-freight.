@@ -1,0 +1,10 @@
+COMMERCIAL INVOICE
+Invoice No: INV-2026-88412
+Shipper: Northstar Components GmbH
+Consignee: Apex Retail Group
+Port of Loading: Shanghai, China
+Port of Discharge: Rotterdam, Netherlands
+Container: NEXU4812057
+Gross Weight: 18,450 kg
+Total Amount Due: USD 18,750.00
+Shipment Ref: NXS-202600012
