@@ -1,0 +1,28 @@
+
+# Python environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Python caches and tests
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# macOS
+.DS_Store
+
+# Secrets
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Local databases and uploads
+*.sqlite3
+*.db
+data/uploads/
+
+# Logs
+*.log
